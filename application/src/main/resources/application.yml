@@ -1,0 +1,4 @@
+management:
+  endpoint:
+    beans:
+      enabled: true

@@ -1,35 +1,30 @@
 plugins {
-    java
-
-    application
-   
     idea
-
-    id("org.springframework.boot") version "2.1.7.RELEASE"
-    id("io.spring.dependency-management") version "1.0.8.RELEASE"
+    java
 }
 
-repositories {
-    jcenter()
-}
+subprojects {
+    version = "1.1"
+//    apply(plugin = "org.springframework.boot")
+    apply(plugin = "java")
 
-dependencies {
-    implementation("com.google.guava:guava:28.0-jre")
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-starter-hateoas")
-    implementation("org.springframework.boot:spring-boot-starter-jersey")
-    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0")
-    implementation("org.springframework.boot:spring-boot-actuator")
+    repositories {
+        jcenter()
+    }
 
+    dependencies {
+        constraints {
+            testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
+            testImplementation("io.rest-assured:rest-assured:4.0.0")
+            testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.4.2")
+            implementation("org.springframework.boot:spring-boot-dependencies:2.1.7.RELEASE")
+            implementation("com.google.guava:guava:28.0-jre")
+            implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0")
+        }
+    }
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.4.2")
-}
-
-application {
-    mainClassName = "com.victory.ddd.china.sample.App"
-}
-
-val test by tasks.getting(Test::class) {
-    useJUnitPlatform()
+    dependencies {
+        implementation(platform("org.springframework.boot:spring-boot-dependencies"))
+        implementation("com.google.guava:guava")
+    }
 }
