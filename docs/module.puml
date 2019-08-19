@@ -1,0 +1,43 @@
+@startuml
+package "sample.purchase.requirement" {
+    [Resource PR]
+    [Resource PR]-->[Application PR]
+    [Application PR]
+    [Application PR]-->[Domain PR]
+    [Application PR]-->[Infrastructure PR]
+    [Infrastructure PR]
+    [Infrastructure PR]-->[Domain PR]
+    [Domain PR]
+}
+
+
+
+package "sample.purchase.order" {
+    [Resource PO]
+    [Resource PO]-->[Application PO]
+    [Application PO]
+    [Application PO]-->[Domain PO]
+    [Application PO]--> [Infrastructure PO]
+    [Domain PO]
+    [Infrastructure PO]
+    [Infrastructure PO] --> [Domain PO]
+    [Infrastructure PO] --> [Domain PR]
+
+
+}
+
+package "sample.application" {
+    [application]
+    [application] --> [Resource PO]
+    [application] --> [Resource PR]
+}
+
+package "sample.api.test" {
+    [api-test]
+    [api-test] --> [Resource PO]
+    [api-test] --> [Resource PR]
+}
+
+
+
+@enduml

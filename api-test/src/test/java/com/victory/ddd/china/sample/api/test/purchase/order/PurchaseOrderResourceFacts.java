@@ -1,4 +1,4 @@
-package com.victory.ddd.china.sample.purchase.order;
+package com.victory.ddd.china.sample.api.test.purchase.order;
 
 import com.victory.ddd.china.sample.api.test.BaseApiFacts;
 import io.restassured.RestAssured;
