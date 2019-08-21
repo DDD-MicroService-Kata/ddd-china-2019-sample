@@ -9,10 +9,6 @@ dependencies {
     testImplementation(project(":purchase-order"))
 }
 
-configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-}
-
 val test by tasks.getting(Test::class) {
     useJUnitPlatform()
 }

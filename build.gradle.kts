@@ -27,4 +27,8 @@ subprojects {
         implementation(platform("org.springframework.boot:spring-boot-dependencies"))
         implementation("com.google.guava:guava")
     }
+
+    configure<JavaPluginConvention> {
+        sourceCompatibility = JavaVersion.VERSION_11
+    }
 }

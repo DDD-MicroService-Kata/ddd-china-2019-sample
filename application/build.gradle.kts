@@ -20,7 +20,3 @@ dependencies {
     implementation(project(":purchase-order"))
 }
 
-configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-}
-
