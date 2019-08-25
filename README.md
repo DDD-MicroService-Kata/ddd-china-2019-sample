@@ -1,4 +1,5 @@
 # ddd-china-2019-sample
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ## Description
 I want to make this project coule be one of DDD style code solution, which is drived by the principles of the DDD tactical design and implement.  
 Also the project will contains the CI/CD, static check and other basic code base infrastructure requirement.  
@@ -29,7 +30,14 @@ Base on Layer Principles and Aggregation-Organized Principles
 ![](docs/module.png)
 
 ## Installation
+### Infrastructure
+#### the Dev Env
+Please run `docker-compose -f ./environment/dev/docker-compose-infra.yml up -d` to start all the  Infrastructure  
+Configuration please see the `docker-compose-infra.yml` file
+
+### Start the application
 this repo is base on spring boot, so the work solution is same as the spring boot defaults.
+
 
 ## Reference
 

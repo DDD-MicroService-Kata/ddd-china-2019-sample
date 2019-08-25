@@ -88,3 +88,6 @@ Temporary Items
 .apdisk
 
 # End of https://www.gitignore.io/api/macos
+
+# ignore docker volume to local
+environment/**/mysql/*

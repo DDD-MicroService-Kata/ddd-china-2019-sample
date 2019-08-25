@@ -1,0 +1,24 @@
+version: '3.7'
+
+networks:
+  ddd-china-2019-sample-network:
+
+services:
+  ddd-china-2019-sample-mysql:
+    image: mysql:8.0
+    networks:
+      - ddd-china-2019-sample-network
+    environment:
+      MYSQL_ROOT_PASSWORD: dev
+      DB_USER: dev
+      USER_PASSWD: dev
+    tty: true
+    ports:
+      - '33306:3306'
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./mysql/etc:/etc/mysql/conf.d
+      - ./mysql/data:/var/lib/mysql
