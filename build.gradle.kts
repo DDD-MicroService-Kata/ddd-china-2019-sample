@@ -5,7 +5,6 @@ plugins {
 
 subprojects {
     version = "1.1"
-//    apply(plugin = "org.springframework.boot")
     apply(plugin = "java")
 
     repositories {
@@ -20,12 +19,18 @@ subprojects {
             implementation("org.springframework.boot:spring-boot-dependencies:2.1.7.RELEASE")
             implementation("com.google.guava:guava:28.0-jre")
             implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0")
+            implementation("org.projectlombok:lombok:1.18.10")
+            implementation("javax.inject:javax.inject:1")
         }
     }
 
     dependencies {
         implementation(platform("org.springframework.boot:spring-boot-dependencies"))
         implementation("com.google.guava:guava")
+        implementation("org.projectlombok:lombok")
+        implementation("javax.inject:javax.inject")
+
+        annotationProcessor("org.projectlombok:lombok:1.18.10")
     }
 
     configure<JavaPluginConvention> {
