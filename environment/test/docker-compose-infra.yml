@@ -1,20 +1,20 @@
 version: '3.7'
 
 networks:
-  ddd-china-2019-sample-network:
+  ddd-china-2019-sample-test-network:
 
 services:
   ddd-china-2019-sample-mysql:
     image: mysql:8.0
     networks:
-      - ddd-china-2019-sample-network
+      - ddd-china-2019-sample-test-network
     environment:
       MYSQL_ROOT_PASSWORD: dev
       DB_USER: dev
       USER_PASSWD: dev
     tty: true
     ports:
-      - '33306:3306'
+      - '33406:3306'
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci

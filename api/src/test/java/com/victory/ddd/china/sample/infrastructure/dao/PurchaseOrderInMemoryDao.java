@@ -53,4 +53,7 @@ public class PurchaseOrderInMemoryDao implements PurchaseOrderDao {
         purchaseOrders.add(order);
     }
 
+    public void clear() {
+        this.purchaseOrders.clear();
+    }
 }

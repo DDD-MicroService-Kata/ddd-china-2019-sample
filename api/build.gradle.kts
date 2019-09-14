@@ -1,7 +1,7 @@
 plugins {
     java
     application
-    id("org.springframework.boot") version "2.1.7.RELEASE"
+    id("org.springframework.boot") version "2.1.8.RELEASE"
 }
 
 application {
@@ -18,6 +18,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-jersey")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    runtimeOnly("mysql:mysql-connector-java")
+    implementation("org.flywaydb:flyway-core")
     implementation(project(":application"))
     implementation(project(":infrastructure"))
 
