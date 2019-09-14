@@ -8,6 +8,4 @@
  */
 
 rootProject.name = "ddd-china-2019-sample"
-include( "application",
-        "purchase-order", "purchase-order:resource",
-        "api-test")
+include( "api")

@@ -1,4 +1,0 @@
-CREATE DATABASE IF NOT EXISTS `ddd_china_2019_sample` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-CREATE USER 'dev'@'%' IDENTIFIED BY 'dev';
-GRANT ALL PRIVILEGES ON *.* TO 'dev'@'%';
