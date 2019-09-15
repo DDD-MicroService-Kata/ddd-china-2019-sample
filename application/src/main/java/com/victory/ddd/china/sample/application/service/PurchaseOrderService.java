@@ -22,12 +22,10 @@ import java.util.stream.Collectors;
 public class PurchaseOrderService {
 
     private PurchaseOrderRepo purchaseOrderRepo;
-    private final PlatformTransactionManager transactionManager;
 
     @Inject
     public PurchaseOrderService(PurchaseOrderRepo purchaseOrderRepo, PlatformTransactionManager transactionManager) {
         this.purchaseOrderRepo = purchaseOrderRepo;
-        this.transactionManager = transactionManager;
     }
 
     public List<PurchaseOrderSummaryDto> getPurchaseOrdersSummary() {
@@ -38,23 +36,9 @@ public class PurchaseOrderService {
 
     @Transactional
     public PurchaseOrderPlaceResultDto placeOrder(@NonNull PurchaseOrderPlaceInfoDto createRequest) {
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-// explicitly setting the transaction name is something that can be done only programmatically
-        def.setName("SomeTxName");
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-
-        TransactionStatus status = transactionManager.getTransaction(def);
-        try {
-            PurchaseOrder order = new PurchaseOrder(createRequest.getCode());
-            purchaseOrderRepo.save(order);
-            val id = order.getId();
-            transactionManager.commit(status);
-            return PurchaseOrderPlaceResultDto.from(order);
-        }
-        catch (Exception ex) {
-            transactionManager.rollback(status);
-            throw ex;
-        }
-
+        PurchaseOrder order = new PurchaseOrder(createRequest.getCode());
+        purchaseOrderRepo.save(order);
+        val id = order.getId();
+        return PurchaseOrderPlaceResultDto.from(order);
     }
 }
