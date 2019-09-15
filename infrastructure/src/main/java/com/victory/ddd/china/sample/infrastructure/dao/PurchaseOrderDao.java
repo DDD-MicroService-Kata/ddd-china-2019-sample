@@ -1,15 +1,27 @@
 package com.victory.ddd.china.sample.infrastructure.dao;
 
-import com.victory.ddd.china.sample.domain.order.PurchaseOrder;
 import lombok.NonNull;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@Mapper
 public interface PurchaseOrderDao {
-    List<PurchaseOrder> getAll();
+//    @ResultMap("po.purchaseOrder")
+    @Select("SELECT * FROM t_purchase_order")
+    List<PurchaseOderPO> getAll();
 
-    Optional<PurchaseOrder> getById(@NonNull Integer orderId);
+//    @ResultMap("po.purchaseOrder")
+    @Select("SELECT * FROM t_purchase_order WHERE id = #{orderId}")
+    Optional<PurchaseOderPO> getById(@NonNull Integer orderId);
 
-    void save(@NonNull PurchaseOrder order);
+    @Insert("INSERT INTO t_purchase_order(code) VALUES(#{code})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    void insert(@NonNull PurchaseOderPO order);
 }

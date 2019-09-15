@@ -1,8 +1,13 @@
 package com.victory.ddd.china.sample.domain.order;
 
 public class PurchaseOrder {
-    private final String code;
+    private String code;
     private Integer id;
+
+    public PurchaseOrder(Integer id, String code) {
+        this.id = id;
+        this.code = code;
+    }
 
     public PurchaseOrder(String code) {
         this.code = code;
@@ -16,7 +21,7 @@ public class PurchaseOrder {
         return id;
     }
 
-    public void setId(Integer idSequence) {
-        this.id = idSequence;
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

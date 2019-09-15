@@ -7,6 +7,11 @@ import com.victory.ddd.china.sample.domain.order.PurchaseOrder;
 import com.victory.ddd.china.sample.domain.order.PurchaseOrderRepo;
 import lombok.NonNull;
 import lombok.val;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,10 +22,12 @@ import java.util.stream.Collectors;
 public class PurchaseOrderService {
 
     private PurchaseOrderRepo purchaseOrderRepo;
+    private final PlatformTransactionManager transactionManager;
 
     @Inject
-    public PurchaseOrderService(PurchaseOrderRepo purchaseOrderRepo) {
+    public PurchaseOrderService(PurchaseOrderRepo purchaseOrderRepo, PlatformTransactionManager transactionManager) {
         this.purchaseOrderRepo = purchaseOrderRepo;
+        this.transactionManager = transactionManager;
     }
 
     public List<PurchaseOrderSummaryDto> getPurchaseOrdersSummary() {
@@ -29,10 +36,25 @@ public class PurchaseOrderService {
                 collect(Collectors.toList());
     }
 
+    @Transactional
     public PurchaseOrderPlaceResultDto placeOrder(@NonNull PurchaseOrderPlaceInfoDto createRequest) {
-        PurchaseOrder order = new PurchaseOrder(createRequest.getCode());
-        purchaseOrderRepo.save(order);
-        val id = order.getId();
-        return PurchaseOrderPlaceResultDto.from(order);
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+// explicitly setting the transaction name is something that can be done only programmatically
+        def.setName("SomeTxName");
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+        TransactionStatus status = transactionManager.getTransaction(def);
+        try {
+            PurchaseOrder order = new PurchaseOrder(createRequest.getCode());
+            purchaseOrderRepo.save(order);
+            val id = order.getId();
+            transactionManager.commit(status);
+            return PurchaseOrderPlaceResultDto.from(order);
+        }
+        catch (Exception ex) {
+            transactionManager.rollback(status);
+            throw ex;
+        }
+
     }
 }
