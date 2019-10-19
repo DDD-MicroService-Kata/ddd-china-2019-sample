@@ -3,3 +3,8 @@ spring:
     url: jdbc:mysql://localhost:33406/ddd_china_2019_sample
     username: dev
     password: dev
+logging:
+  level:
+    com.victory.ddd.china.sample: DEBUG
+    org.springframework.transaction: DEBUG
+

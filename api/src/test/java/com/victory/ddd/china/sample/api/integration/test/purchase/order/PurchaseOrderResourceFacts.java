@@ -1,21 +1,14 @@
 package com.victory.ddd.china.sample.api.integration.test.purchase.order;
 
-import com.victory.ddd.china.sample.api.MyBatisSpringTransaction;
 import com.victory.ddd.china.sample.api.integration.test.BaseApiFacts;
 import com.victory.ddd.china.sample.application.dto.PurchaseOrderPlaceInfoDto;
 import com.victory.ddd.china.sample.domain.order.PurchaseOrder;
 import com.victory.ddd.china.sample.domain.order.PurchaseOrderRepo;
-import com.victory.ddd.china.sample.infrastructure.dao.PurchaseOrderDao;
-import com.victory.ddd.china.sample.infrastructure.dao.PurchaseOrderInMemoryDao;
 import lombok.val;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;

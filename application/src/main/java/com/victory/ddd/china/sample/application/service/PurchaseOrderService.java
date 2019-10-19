@@ -37,8 +37,8 @@ public class PurchaseOrderService {
     @Transactional
     public PurchaseOrderPlaceResultDto placeOrder(@NonNull PurchaseOrderPlaceInfoDto createRequest) {
         PurchaseOrder order = new PurchaseOrder(createRequest.getCode());
+        order.setId(1);
         purchaseOrderRepo.save(order);
-        val id = order.getId();
         return PurchaseOrderPlaceResultDto.from(order);
     }
 }
