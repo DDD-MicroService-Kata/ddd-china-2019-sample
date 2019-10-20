@@ -4,7 +4,6 @@ import com.victory.ddd.china.sample.domain.context.relationship.profile.ProfileR
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.Optional;
 
 @Named
 public class PublicRepresentationUseCase {
@@ -16,10 +15,9 @@ public class PublicRepresentationUseCase {
         this.profileRepo = profileRepo;
     }
 
-    public Optional<PublicRepresentationDto> get(String userName) {
+    public PublicRepresentationDto get(String userName) {
         return profileRepo.
                 get(userName).
-                map(PublicRepresentationDto::from);
-
+                map(PublicRepresentationDto::from).orElse(PublicRepresentationDto.defaultInstance());
     }
 }

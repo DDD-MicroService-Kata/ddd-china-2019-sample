@@ -39,4 +39,17 @@ class ProfileResourceFacts extends BaseApiFacts {
                 .body("following", equalTo(false));
 
     }
+
+    @Test
+    void  should_get_the_empty_profile_when_user_not_exists(){
+        given()
+                .get("api/profiles/{username}", "NotTrue")
+                .then()
+                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .statusCode(200)
+                .body("username", equalTo(null))
+                .body("bio", equalTo(null))
+                .body("image", equalTo(null))
+                .body("following", equalTo(false));
+    }
 }

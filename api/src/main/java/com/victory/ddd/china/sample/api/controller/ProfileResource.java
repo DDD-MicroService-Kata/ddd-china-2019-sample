@@ -10,7 +10,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.Optional;
 
 @Singleton
 @Path("/profiles")
@@ -27,7 +26,7 @@ public class ProfileResource {
     @GET
     @Path("/{username}")
     @Produces("application/json")
-    public Optional<PublicRepresentationDto> get(@PathParam("username") String userName){
+    public PublicRepresentationDto get(@PathParam("username") String userName){
         return this.publicRepresentationUseCase.get(userName);
     }
 }
