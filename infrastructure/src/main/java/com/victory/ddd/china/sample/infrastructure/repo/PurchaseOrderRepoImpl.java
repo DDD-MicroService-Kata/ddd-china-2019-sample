@@ -2,7 +2,7 @@ package com.victory.ddd.china.sample.infrastructure.repo;
 
 import com.victory.ddd.china.sample.domain.order.PurchaseOrder;
 import com.victory.ddd.china.sample.domain.order.PurchaseOrderRepo;
-import com.victory.ddd.china.sample.infrastructure.dao.PurchaseOderPO;
+import com.victory.ddd.china.sample.infrastructure.dao.PurchaseOrderPO;
 import com.victory.ddd.china.sample.infrastructure.dao.PurchaseOrderDao;
 import lombok.NonNull;
 import lombok.val;
@@ -26,19 +26,19 @@ public class PurchaseOrderRepoImpl implements PurchaseOrderRepo {
     @Override
     public List<PurchaseOrder> findAll() {
         return purchaseOrderDao.getAll().stream().
-                map(PurchaseOderPO::to).
+                map(PurchaseOrderPO::to).
                 collect(Collectors.toList());
     }
 
     @Override
     public Optional<PurchaseOrder> findById(@NonNull Integer orderId) {
         val po = purchaseOrderDao.getById(orderId);
-        return po.map(PurchaseOderPO::to);
+        return po.map(PurchaseOrderPO::to);
     }
 
     @Override
     public void save(@NonNull PurchaseOrder order) {
-        val from = PurchaseOderPO.from(order);
+        val from = PurchaseOrderPO.from(order);
         purchaseOrderDao.insert(from);
         order.setId(from.getId());
     }

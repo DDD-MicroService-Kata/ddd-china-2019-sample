@@ -15,12 +15,12 @@ import lombok.NonNull;
 @Data
 @Getter
 @Builder
-public class PurchaseOderPO {
+public class PurchaseOrderPO {
     private Integer id;
     private String code;
 
-    public static PurchaseOderPO from(@NonNull PurchaseOrder order) {
-        return PurchaseOderPO.builder()
+    public static PurchaseOrderPO from(@NonNull PurchaseOrder order) {
+        return PurchaseOrderPO.builder()
                 .id(order.getId())
                 .code(order.getCode())
                 .build();
