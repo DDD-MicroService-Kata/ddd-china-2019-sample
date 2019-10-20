@@ -6,6 +6,7 @@ import com.victory.ddd.china.sample.api.integration.test.fixtures.data.ProfileFi
 import com.victory.ddd.china.sample.api.integration.test.fixtures.data.Usernames;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
 import com.victory.ddd.china.sample.infrastructure.token.JwtTokenService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +38,8 @@ class FollowResourceFacts extends BaseApiFacts {
         given().
                 header(HttpHeaders.AUTHORIZATION, jwtTokenService.issue(Usernames.CURRENT_USER)).
                 post("api/profiles/{username}/follow", theOtherOneProfile.getUsername()).
-                then().statusCode(200).
+                then().
+                statusCode(200).
                 body("username", equalTo(theOtherOneProfile.getUsername())).
                 body("bio", equalTo(theOtherOneProfile.getBio())).
                 body("image", equalTo(theOtherOneProfile.getImage())).
@@ -55,6 +57,17 @@ class FollowResourceFacts extends BaseApiFacts {
                 body("bio", equalTo(theOtherOneProfile.getBio())).
                 body("image", equalTo(theOtherOneProfile.getImage())).
                 body("following", equalTo(true));
+    }
+
+    @Test
+    void should_follow_failed_when_the_to_follow_user_is_not_exits() {
+        given().
+                header(HttpHeaders.AUTHORIZATION, jwtTokenService.issue(Usernames.CURRENT_USER)).
+                post("api/profiles/{username}/follow", Usernames.Not_Exists).
+                then().
+                statusCode(422).
+                body("errors", Matchers.hasSize(1)).
+                body("errors[0]", equalTo(String.format("no such user to follow %s", Usernames.Not_Exists)));
     }
 
     @Test

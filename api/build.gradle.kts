@@ -24,6 +24,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation(project(":application"))
     implementation(project(":infrastructure"))
+    implementation(project(":domain"))
 
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("org.flywaydb.flyway-test-extensions:flyway-spring-test")
