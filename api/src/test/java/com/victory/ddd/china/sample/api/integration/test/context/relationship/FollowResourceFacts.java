@@ -1,9 +1,9 @@
 package com.victory.ddd.china.sample.api.integration.test.context.relationship;
 
 import com.victory.ddd.china.sample.api.integration.test.BaseApiFacts;
-import com.victory.ddd.china.sample.api.integration.test.fixtures.Username;
+import com.victory.ddd.china.sample.api.integration.test.fixtures.data.ProfileFixture;
+import com.victory.ddd.china.sample.api.integration.test.fixtures.data.Usernames;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
-import com.victory.ddd.china.sample.domain.context.relationship.profile.ProfileRepo;
 import com.victory.ddd.china.sample.infrastructure.token.JwtTokenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,18 +21,17 @@ class FollowResourceFacts extends BaseApiFacts {
     private JwtTokenService jwtTokenService;
 
     @Inject
-    private ProfileRepo profileRepo;
+    private ProfileFixture profileFixture;
 
     @BeforeEach
     void dataPrepare() {
-        theOtherOneProfile = new Profile(Username.THE_OTHER_ONE);
-        profileRepo.save(theOtherOneProfile);
+        theOtherOneProfile = profileFixture.createTheOtherUserProfile();
     }
 
     @Test
     void should_follow_the_other_user_successfully(){
         given().
-                header(HttpHeaders.AUTHORIZATION, jwtTokenService.issue(Username.CURRENT_USER)).
+                header(HttpHeaders.AUTHORIZATION, jwtTokenService.issue(Usernames.CURRENT_USER)).
                 post("api/profiles/{username}/follow", theOtherOneProfile.getUsername()).
                 then().statusCode(200).
                 body("username", equalTo(theOtherOneProfile.getUsername())).
@@ -42,3 +41,4 @@ class FollowResourceFacts extends BaseApiFacts {
     }
 
 }
+

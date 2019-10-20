@@ -1,39 +1,49 @@
 package com.victory.ddd.china.sample.api.integration.test.context.relationship;
 
 import com.victory.ddd.china.sample.api.integration.test.BaseApiFacts;
-import com.victory.ddd.china.sample.api.integration.test.fixtures.Username;
+import com.victory.ddd.china.sample.api.integration.test.fixtures.data.FollowFixture;
+import com.victory.ddd.china.sample.api.integration.test.fixtures.data.ProfileFixture;
+import com.victory.ddd.china.sample.api.integration.test.fixtures.data.Usernames;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
-import com.victory.ddd.china.sample.domain.context.relationship.profile.ProfileRepo;
+import com.victory.ddd.china.sample.infrastructure.token.JwtTokenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 class ProfileResourceFacts extends BaseApiFacts {
+
     @Inject
-    private ProfileRepo profileRepo;
+    private ProfileFixture profileFixture;
+
+    @Inject
+    private FollowFixture followFixture;
+
+    @Inject
+    private JwtTokenService jwtTokenService;
 
     private Profile theOtherOneProfile;
 
     @BeforeEach
     void dataPrepare() {
-        theOtherOneProfile = new Profile(Username.THE_OTHER_ONE);
-        profileRepo.save(theOtherOneProfile);
+        theOtherOneProfile = profileFixture.createTheOtherUserProfile();
+
     }
 
     @Test
     void should_get_the_other_profile() {
 
         given()
-                .get("api/profiles/{username}", Username.THE_OTHER_ONE)
+                .get("api/profiles/{username}", Usernames.THE_OTHER_ONE)
                 .then()
                 .header("Content-Type", MediaType.APPLICATION_JSON)
                 .statusCode(200)
-                .body("username", equalTo(Username.THE_OTHER_ONE))
+                .body("username", equalTo(Usernames.THE_OTHER_ONE))
                 .body("bio", equalTo(theOtherOneProfile.getBio()))
                 .body("image", equalTo(theOtherOneProfile.getImage()))
                 .body("following", equalTo(false));
@@ -41,9 +51,9 @@ class ProfileResourceFacts extends BaseApiFacts {
     }
 
     @Test
-    void  should_get_the_empty_profile_when_user_not_exists(){
+    void should_get_the_empty_profile_when_user_not_exists() {
         given()
-                .get("api/profiles/{username}", "NotTrue")
+                .get("api/profiles/{username}", Usernames.Not_Exists)
                 .then()
                 .header("Content-Type", MediaType.APPLICATION_JSON)
                 .statusCode(200)
@@ -51,5 +61,18 @@ class ProfileResourceFacts extends BaseApiFacts {
                 .body("bio", equalTo(null))
                 .body("image", equalTo(null))
                 .body("following", equalTo(false));
+    }
+
+    @Test
+    void should_get_the_other_profile_with_following_when_the_users_followed() {
+        followFixture.createTheOtherOneFollowedByCurrent();
+
+        given()
+                .header(HttpHeaders.AUTHORIZATION, jwtTokenService.issue(Usernames.CURRENT_USER))
+                .get("api/profiles/{username}", Usernames.THE_OTHER_ONE)
+                .then()
+                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .statusCode(200)
+                .body("following", equalTo(true));
     }
 }
