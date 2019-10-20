@@ -1,4 +1,4 @@
-package com.victory.ddd.china.sample.domain.context.relationship;
+package com.victory.ddd.china.sample.domain.context.relationship.profile;
 
 import java.util.Optional;
 

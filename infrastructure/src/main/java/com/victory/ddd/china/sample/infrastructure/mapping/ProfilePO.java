@@ -1,6 +1,6 @@
-package com.victory.ddd.china.sample.infrastructure.dao;
+package com.victory.ddd.china.sample.infrastructure.mapping;
 
-import com.victory.ddd.china.sample.domain.context.relationship.Profile;
+import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

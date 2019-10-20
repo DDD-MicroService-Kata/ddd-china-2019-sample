@@ -1,8 +1,8 @@
 package com.victory.ddd.china.sample.api.integration.test.context.relationship;
 
 import com.victory.ddd.china.sample.api.integration.test.BaseApiFacts;
-import com.victory.ddd.china.sample.domain.context.relationship.Profile;
-import com.victory.ddd.china.sample.domain.context.relationship.ProfileRepo;
+import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
+import com.victory.ddd.china.sample.domain.context.relationship.profile.ProfileRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

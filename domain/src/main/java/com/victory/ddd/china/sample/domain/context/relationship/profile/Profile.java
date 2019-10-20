@@ -1,4 +1,4 @@
-package com.victory.ddd.china.sample.domain.context.relationship;
+package com.victory.ddd.china.sample.domain.context.relationship.profile;
 
 import com.victory.ddd.china.sample.domain.types.AggregateRoot;
 import com.victory.ddd.china.sample.domain.types.Entity;

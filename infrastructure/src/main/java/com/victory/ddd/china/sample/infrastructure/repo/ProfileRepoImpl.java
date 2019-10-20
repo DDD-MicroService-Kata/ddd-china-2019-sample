@@ -1,9 +1,10 @@
 package com.victory.ddd.china.sample.infrastructure.repo;
 
-import com.victory.ddd.china.sample.domain.context.relationship.Profile;
-import com.victory.ddd.china.sample.domain.context.relationship.ProfileRepo;
-import com.victory.ddd.china.sample.infrastructure.dao.ProfileMapping;
-import com.victory.ddd.china.sample.infrastructure.dao.ProfilePO;
+
+import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
+import com.victory.ddd.china.sample.domain.context.relationship.profile.ProfileRepo;
+import com.victory.ddd.china.sample.infrastructure.mapping.ProfileMapping;
+import com.victory.ddd.china.sample.infrastructure.mapping.ProfilePO;
 import lombok.NonNull;
 import lombok.val;
 

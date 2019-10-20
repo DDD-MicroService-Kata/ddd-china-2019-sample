@@ -1,19 +1,19 @@
-package com.victory.ddd.china.sample.application.dto;
+package com.victory.ddd.china.sample.application.usecase.profile;
 
-import com.victory.ddd.china.sample.domain.context.relationship.Profile;
+import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class ProfileRepresentationDto {
+public class PublicRepresentationDto {
     private String username;
     private String bio;
     private String image;
     private boolean following;
 
-    public static ProfileRepresentationDto from(Profile profile) {
-        return ProfileRepresentationDto.
+    static PublicRepresentationDto from(Profile profile) {
+        return PublicRepresentationDto.
                 builder().
                 username(profile.getUsername()).
                 bio(profile.getBio()).

@@ -1,4 +1,4 @@
-package com.victory.ddd.china.sample.infrastructure.dao;
+package com.victory.ddd.china.sample.infrastructure.mapping;
 
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Insert;

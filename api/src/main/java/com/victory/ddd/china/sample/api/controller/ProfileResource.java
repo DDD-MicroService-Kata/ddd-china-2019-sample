@@ -1,7 +1,7 @@
 package com.victory.ddd.china.sample.api.controller;
 
-import com.victory.ddd.china.sample.application.dto.ProfileRepresentationDto;
-import com.victory.ddd.china.sample.application.service.ProfileService;
+import com.victory.ddd.china.sample.application.usecase.profile.PublicRepresentationDto;
+import com.victory.ddd.china.sample.application.usecase.profile.PublicRepresentationUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Singleton;
@@ -17,17 +17,17 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProfileResource {
 
-    private final ProfileService profileService;
+    private final PublicRepresentationUseCase publicRepresentationUseCase;
 
     @Autowired
-    public ProfileResource(final ProfileService profileService ) {
-        this.profileService = profileService;
+    public ProfileResource(final PublicRepresentationUseCase publicRepresentationUseCase) {
+        this.publicRepresentationUseCase = publicRepresentationUseCase;
     }
 
     @GET
     @Path("/{username}")
     @Produces("application/json")
-    public Optional<ProfileRepresentationDto> get(@PathParam("username") String userName){
-        return this.profileService.get(userName);
+    public Optional<PublicRepresentationDto> get(@PathParam("username") String userName){
+        return this.publicRepresentationUseCase.get(userName);
     }
 }
