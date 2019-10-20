@@ -32,4 +32,10 @@ public class FollowingRepoImpl implements FollowingRepo {
                 getFollowing(followed, followedBy).
                 map(FollowingPO::toFollowing);
     }
+
+    @Override
+    public void remove(Following following) {
+        val followingPo  = FollowingPO.from(following);
+        followingMapping.delete(followingPo);
+    }
 }

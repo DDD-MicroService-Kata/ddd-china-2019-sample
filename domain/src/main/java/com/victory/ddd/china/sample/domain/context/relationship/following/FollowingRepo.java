@@ -6,4 +6,6 @@ public interface FollowingRepo {
     void save(Following following);
 
     Optional<Following> get(String followed, String followedBy);
+
+    void remove(Following following);
 }

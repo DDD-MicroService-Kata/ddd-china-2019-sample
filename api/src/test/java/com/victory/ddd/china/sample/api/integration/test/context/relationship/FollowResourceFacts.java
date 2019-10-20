@@ -57,5 +57,30 @@ class FollowResourceFacts extends BaseApiFacts {
                 body("following", equalTo(true));
     }
 
+    @Test
+    void should_unFollow_the_other_user_successfully() {
+        followFixture.createTheOtherOneFollowedByCurrent();
+        given().
+                header(HttpHeaders.AUTHORIZATION, jwtTokenService.issue(Usernames.CURRENT_USER)).
+                delete("api/profiles/{username}/follow", theOtherOneProfile.getUsername()).
+                then().statusCode(200).
+                body("username", equalTo(theOtherOneProfile.getUsername())).
+                body("bio", equalTo(theOtherOneProfile.getBio())).
+                body("image", equalTo(theOtherOneProfile.getImage())).
+                body("following", equalTo(false));
+    }
+
+    @Test
+    void should_unFollow_successfully_when_no_following() {
+        given().
+                header(HttpHeaders.AUTHORIZATION, jwtTokenService.issue(Usernames.CURRENT_USER)).
+                delete("api/profiles/{username}/follow", theOtherOneProfile.getUsername()).
+                then().statusCode(200).
+                body("username", equalTo(theOtherOneProfile.getUsername())).
+                body("bio", equalTo(theOtherOneProfile.getBio())).
+                body("image", equalTo(theOtherOneProfile.getImage())).
+                body("following", equalTo(false));
+    }
+
 }
 

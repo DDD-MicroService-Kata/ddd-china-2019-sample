@@ -29,4 +29,9 @@ public class FollowUserUseCase {
         assert(publicRepresentation.isPresent());
         return publicRepresentation.get();
     }
+
+    @Transactional
+    public ProfilePublicRepresentationQueryModel unFollow(String currentUser, String toFollowUsername) {
+        return null;
+    }
 }
