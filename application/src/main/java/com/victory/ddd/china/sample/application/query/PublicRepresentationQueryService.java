@@ -1,6 +1,6 @@
 package com.victory.ddd.china.sample.application.query;
 
-import com.victory.ddd.china.sample.domain.context.relationship.following.IsFollowedSpecification;
+import com.victory.ddd.china.sample.domain.context.relationship.following.IsFollowingSpecification;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.ProfileRepo;
 import lombok.val;
 
@@ -11,12 +11,12 @@ import java.util.Optional;
 @Named
 public class PublicRepresentationQueryService {
     private final ProfileRepo profileRepo;
-    private final IsFollowedSpecification isFollowedSpecification;
+    private final IsFollowingSpecification isFollowingSpecification;
 
     @Inject
-    public PublicRepresentationQueryService(ProfileRepo profileRepo, IsFollowedSpecification isFollowedSpecification) {
+    public PublicRepresentationQueryService(ProfileRepo profileRepo, IsFollowingSpecification isFollowingSpecification) {
         this.profileRepo = profileRepo;
-        this.isFollowedSpecification = isFollowedSpecification;
+        this.isFollowingSpecification = isFollowingSpecification;
     }
 
     public Optional<ProfilePublicRepresentationQueryModel> getPublicRepresentation(String profileOwner,
@@ -25,8 +25,7 @@ public class PublicRepresentationQueryService {
                 get(profileOwner).
                 map(profile -> {
                     val isFollowing = browser.
-                            map(current ->
-                                    isFollowedSpecification.isFollowing(profile.getUsername(), current)).
+                            map(current -> isFollowingSpecification.isFollowing(profile.getUsername(), current)).
                             orElse(false);
                     return ProfilePublicRepresentationQueryModel.from(profile, isFollowing);
                 });

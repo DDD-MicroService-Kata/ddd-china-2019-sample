@@ -7,16 +7,16 @@ import javax.inject.Named;
 public class FollowingService {
 
     private final FollowingRepo followingRepo;
-    private final IsFollowedSpecification isFollowedSpecification;
+    private final IsFollowingSpecification isFollowingSpecification;
 
     @Inject
-    public FollowingService(FollowingRepo followingRepo, IsFollowedSpecification isFollowedSpecification) {
+    public FollowingService(FollowingRepo followingRepo, IsFollowingSpecification isFollowingSpecification) {
         this.followingRepo = followingRepo;
-        this.isFollowedSpecification = isFollowedSpecification;
+        this.isFollowingSpecification = isFollowingSpecification;
     }
 
     public void follow(String toFollow, String currentUser) {
-        boolean isFollowed = isFollowedSpecification.isFollowing(toFollow, currentUser);
+        boolean isFollowed = isFollowingSpecification.isFollowing(toFollow, currentUser);
         if(!isFollowed) {
             Following following = new Following(toFollow, currentUser);
             followingRepo.save(following);
