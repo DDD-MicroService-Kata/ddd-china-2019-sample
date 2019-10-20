@@ -13,5 +13,6 @@ public interface ProfileMapping {
     void insert(@NonNull ProfilePO profilePO);
 
     @Select("SELECT * FROM t_profile WHERE username = #{username}")
-    Optional<ProfilePO> findByUsername(String username);
+    Optional<ProfilePO> findByUsername(@NonNull String username);
 }
+

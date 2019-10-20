@@ -1,6 +1,7 @@
 package com.victory.ddd.china.sample.api.integration.test.context.relationship;
 
 import com.victory.ddd.china.sample.api.integration.test.BaseApiFacts;
+import com.victory.ddd.china.sample.api.integration.test.fixtures.Username;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.ProfileRepo;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,11 +18,10 @@ class ProfileResourceFacts extends BaseApiFacts {
     private ProfileRepo profileRepo;
 
     private Profile theOtherOneProfile;
-    private String theOtherOneUserName = "theOtherOne";
 
     @BeforeEach
     void dataPrepare() {
-        theOtherOneProfile = new Profile(theOtherOneUserName);
+        theOtherOneProfile = new Profile(Username.THE_OTHER_ONE);
         profileRepo.save(theOtherOneProfile);
     }
 
@@ -29,11 +29,11 @@ class ProfileResourceFacts extends BaseApiFacts {
     void should_get_the_other_profile() {
 
         given()
-                .get("api/profiles/{username}", theOtherOneUserName)
+                .get("api/profiles/{username}", Username.THE_OTHER_ONE)
                 .then()
                 .header("Content-Type", MediaType.APPLICATION_JSON)
                 .statusCode(200)
-                .body("username", equalTo(theOtherOneUserName))
+                .body("username", equalTo(Username.THE_OTHER_ONE))
                 .body("bio", equalTo(theOtherOneProfile.getBio()))
                 .body("image", equalTo(theOtherOneProfile.getImage()))
                 .body("following", equalTo(false));

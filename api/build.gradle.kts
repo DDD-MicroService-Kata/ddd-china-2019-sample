@@ -27,6 +27,7 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("org.flywaydb.flyway-test-extensions:flyway-spring-test")
+    testImplementation("io.jsonwebtoken:jjwt")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("io.rest-assured:rest-assured")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {

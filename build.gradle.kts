@@ -23,6 +23,7 @@ subprojects {
             implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0")
             implementation("javax.inject:javax.inject:1")
             implementation("org.flywaydb:flyway-core:5.2.4")
+            implementation("io.jsonwebtoken:jjwt:0.9.1")
             runtimeOnly("mysql:mysql-connector-java:8.0.17")
         }
     }
