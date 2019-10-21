@@ -1,10 +1,9 @@
-package com.victory.ddd.china.sample.api.filter;
+package com.victory.ddd.china.sample.api.filter.Authentication;
 
 import com.victory.ddd.china.sample.infrastructure.token.JwtTokenService;
 
 import javax.annotation.Priority;
 import javax.inject.Inject;
-import javax.security.auth.Subject;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -40,46 +39,3 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     }
 }
 
-final class UsernameSecurityContext implements SecurityContext {
-
-    private final boolean isSecure;
-    private AuthenticatedUserPrincipal user;
-
-    public UsernameSecurityContext(String username, boolean isSecure) {
-        user = new AuthenticatedUserPrincipal(username);
-        this.isSecure = isSecure;
-    }
-
-    @Override
-    public Principal getUserPrincipal() {
-        return this.user;
-    }
-
-    @Override
-    public boolean isUserInRole(String role) {
-        return true;
-    }
-
-    @Override
-    public boolean isSecure() {
-        return isSecure;
-    }
-
-    @Override
-    public String getAuthenticationScheme() {
-        return "Bearer";
-    }
-}
-
-final class AuthenticatedUserPrincipal implements Principal {
-    private final String username;
-
-    AuthenticatedUserPrincipal(String username) {
-        this.username = username;
-    }
-
-    @Override
-    public String getName() {
-        return username;
-    }
-}
