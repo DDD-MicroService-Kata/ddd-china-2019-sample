@@ -19,8 +19,7 @@ public class PublicRepresentationQueryService {
         this.isFollowingSpecification = isFollowingSpecification;
     }
 
-    public Optional<ProfilePublicRepresentationQueryModel> getPublicRepresentation(String profileOwner,
-                                                                                   Optional<String> browser) {
+    public Optional<ProfilePublicRepresentationQueryModel> getPublicRepresentation(String profileOwner, Optional<String> browser) {
         return profileRepo.
                 get(profileOwner).
                 map(profile -> {

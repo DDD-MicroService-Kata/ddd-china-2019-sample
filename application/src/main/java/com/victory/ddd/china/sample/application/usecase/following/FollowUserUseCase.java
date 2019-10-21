@@ -30,8 +30,4 @@ public class FollowUserUseCase {
         return publicRepresentation.get();
     }
 
-    @Transactional
-    public ProfilePublicRepresentationQueryModel unFollow(String currentUser, String toFollowUsername) {
-        return null;
-    }
 }
