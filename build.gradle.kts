@@ -32,6 +32,7 @@ subprojects {
         implementation(platform("org.springframework.boot:spring-boot-dependencies"))
         implementation("com.google.guava:guava")
         implementation("javax.inject:javax.inject")
+        implementation("org.apache.commons:commons-lang3:3.1")
 
         annotationProcessor("org.projectlombok:lombok:1.18.10")
         compileOnly("org.projectlombok:lombok:1.18.10")

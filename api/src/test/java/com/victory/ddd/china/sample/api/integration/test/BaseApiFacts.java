@@ -37,5 +37,6 @@ public class BaseApiFacts {
     @FlywayTest
     void setUp() {
         RestAssured.port = port;
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 }
