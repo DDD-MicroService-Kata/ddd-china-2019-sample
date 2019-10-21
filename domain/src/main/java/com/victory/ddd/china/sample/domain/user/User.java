@@ -7,7 +7,6 @@ import lombok.Setter;
 
 @AggregateRoot
 @Getter
-@Setter
 @Entity
 public class User {
     private String username;
