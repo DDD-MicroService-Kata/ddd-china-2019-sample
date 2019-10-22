@@ -1,6 +1,6 @@
 package com.victory.ddd.china.sample.api.controller;
 
-import com.victory.ddd.china.sample.application.query.ProfilePublicRepresentationQueryModel;
+import com.victory.ddd.china.sample.application.query.ProfilePublicRepresentationReadModel;
 import com.victory.ddd.china.sample.application.usecase.following.FollowUserUseCase;
 import com.victory.ddd.china.sample.application.usecase.following.UnFollowUserUseCase;
 import org.glassfish.jersey.process.internal.RequestScoped;
@@ -33,7 +33,7 @@ public class FollowResource {
     @POST
     @Path("/{username}/follow")
     @Produces("application/json")
-    public ProfilePublicRepresentationQueryModel follow(@PathParam("username") String toFollowUsername) {
+    public ProfilePublicRepresentationReadModel follow(@PathParam("username") String toFollowUsername) {
         String currentUser = securityContext.getUserPrincipal().getName();
         return this.followUseCase.follow(currentUser, toFollowUsername);
 
@@ -42,7 +42,7 @@ public class FollowResource {
     @DELETE
     @Path("/{username}/follow")
     @Produces("application/json")
-    public ProfilePublicRepresentationQueryModel unFollow(@PathParam("username") String toFollowUsername) {
+    public ProfilePublicRepresentationReadModel unFollow(@PathParam("username") String toFollowUsername) {
         String currentUser = securityContext.getUserPrincipal().getName();
         return this.unFollowUserUseCase.unFollow(currentUser, toFollowUsername);
 

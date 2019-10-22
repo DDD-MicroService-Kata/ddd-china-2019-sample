@@ -1,6 +1,6 @@
 package com.victory.ddd.china.sample.api.exception.mapper;
 
-import com.victory.ddd.china.sample.domain.types.DomainBusinessException;
+import com.victory.ddd.china.sample.domain.build.block.DomainBusinessException;
 import lombok.val;
 
 import javax.ws.rs.core.MediaType;

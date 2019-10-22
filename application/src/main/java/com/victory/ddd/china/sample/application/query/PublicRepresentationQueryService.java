@@ -19,14 +19,14 @@ public class PublicRepresentationQueryService {
         this.isFollowingSpecification = isFollowingSpecification;
     }
 
-    public Optional<ProfilePublicRepresentationQueryModel> getPublicRepresentation(String profileOwner, Optional<String> browser) {
+    public Optional<ProfilePublicRepresentationReadModel> getPublicRepresentation(String profileOwner, Optional<String> browser) {
         return profileRepo.
                 get(profileOwner).
                 map(profile -> {
                     val isFollowing = browser.
                             map(current -> isFollowingSpecification.isFollowing(profile.getUsername(), current)).
                             orElse(false);
-                    return ProfilePublicRepresentationQueryModel.from(profile, isFollowing);
+                    return ProfilePublicRepresentationReadModel.from(profile, isFollowing);
                 });
     }
 }

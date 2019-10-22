@@ -1,7 +1,7 @@
 package com.victory.ddd.china.sample.domain.context.relationship.profile;
 
-import com.victory.ddd.china.sample.domain.types.AggregateRoot;
-import com.victory.ddd.china.sample.domain.types.Entity;
+import com.victory.ddd.china.sample.domain.build.block.AggregateRoot;
+import com.victory.ddd.china.sample.domain.build.block.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

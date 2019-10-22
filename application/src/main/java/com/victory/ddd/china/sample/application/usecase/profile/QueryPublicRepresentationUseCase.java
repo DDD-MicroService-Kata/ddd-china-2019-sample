@@ -1,12 +1,14 @@
 package com.victory.ddd.china.sample.application.usecase.profile;
 
-import com.victory.ddd.china.sample.application.query.ProfilePublicRepresentationQueryModel;
+import com.victory.ddd.china.sample.application.build.block.UseCase;
+import com.victory.ddd.china.sample.application.query.ProfilePublicRepresentationReadModel;
 import com.victory.ddd.china.sample.application.query.PublicRepresentationQueryService;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Optional;
 
+@UseCase
 @Named
 public class QueryPublicRepresentationUseCase {
     private final PublicRepresentationQueryService publicRepresentationQueryService;
@@ -16,10 +18,10 @@ public class QueryPublicRepresentationUseCase {
             this.publicRepresentationQueryService = publicRepresentationQueryService;
     }
 
-    public ProfilePublicRepresentationQueryModel get(String userName, Optional<String> currentUser) {
+    public ProfilePublicRepresentationReadModel get(String userName, Optional<String> currentUser) {
         return this.publicRepresentationQueryService.
                 getPublicRepresentation(userName, currentUser).
-                orElse(ProfilePublicRepresentationQueryModel.defaultInstance());
+                orElse(ProfilePublicRepresentationReadModel.defaultInstance());
     }
 
 }

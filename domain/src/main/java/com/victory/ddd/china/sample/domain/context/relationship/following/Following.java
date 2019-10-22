@@ -1,7 +1,7 @@
 package com.victory.ddd.china.sample.domain.context.relationship.following;
 
-import com.victory.ddd.china.sample.domain.types.AggregateRoot;
-import com.victory.ddd.china.sample.domain.types.ValueObject;
+import com.victory.ddd.china.sample.domain.build.block.AggregateRoot;
+import com.victory.ddd.china.sample.domain.build.block.ValueObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

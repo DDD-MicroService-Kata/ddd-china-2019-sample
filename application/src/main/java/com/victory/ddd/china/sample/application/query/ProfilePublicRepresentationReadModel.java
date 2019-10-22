@@ -1,23 +1,26 @@
 package com.victory.ddd.china.sample.application.query;
 
+import com.victory.ddd.china.sample.application.build.block.ReadModel;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 
-@Data
+
+@ReadModel
 @Builder
-public class ProfilePublicRepresentationQueryModel {
+@Value
+public class ProfilePublicRepresentationReadModel {
     private String username;
     private String bio;
     private String image;
     private boolean following;
 
-    public static ProfilePublicRepresentationQueryModel defaultInstance() {
-        return ProfilePublicRepresentationQueryModel.builder().build();
+    public static ProfilePublicRepresentationReadModel defaultInstance() {
+        return ProfilePublicRepresentationReadModel.builder().build();
     }
 
-    static ProfilePublicRepresentationQueryModel from(Profile profile, Boolean isFollowing) {
-        return ProfilePublicRepresentationQueryModel.
+    static ProfilePublicRepresentationReadModel from(Profile profile, Boolean isFollowing) {
+        return ProfilePublicRepresentationReadModel.
                 builder().
                 username(profile.getUsername()).
                 bio(profile.getBio()).

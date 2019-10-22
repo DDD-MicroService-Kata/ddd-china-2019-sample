@@ -1,6 +1,6 @@
 package com.victory.ddd.china.sample.domain.context.relationship.following;
 
-import com.victory.ddd.china.sample.domain.types.Specification;
+import com.victory.ddd.china.sample.domain.build.block.Specification;
 import lombok.val;
 
 import javax.inject.Inject;

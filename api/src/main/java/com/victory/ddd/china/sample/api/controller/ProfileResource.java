@@ -1,8 +1,7 @@
 package com.victory.ddd.china.sample.api.controller;
 
-import com.victory.ddd.china.sample.application.query.ProfilePublicRepresentationQueryModel;
+import com.victory.ddd.china.sample.application.query.ProfilePublicRepresentationReadModel;
 import com.victory.ddd.china.sample.application.usecase.profile.QueryPublicRepresentationUseCase;
-import lombok.val;
 import org.glassfish.jersey.process.internal.RequestScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,7 +32,7 @@ public class ProfileResource {
     @GET
     @Path("/{username}")
     @Produces("application/json")
-    public ProfilePublicRepresentationQueryModel get(@PathParam("username") String userName){
+    public ProfilePublicRepresentationReadModel get(@PathParam("username") String userName){
         final Optional<String> currentUser = securityContext.getUserPrincipal() != null ?
                 Optional.of(securityContext.getUserPrincipal().getName()) :
                 Optional.empty();
