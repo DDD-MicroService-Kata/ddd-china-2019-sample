@@ -5,7 +5,8 @@ import com.victory.ddd.china.sample.domain.context.relationship.profile.ProfileR
 import com.victory.ddd.china.sample.domain.types.DomainBusinessException;
 import com.victory.ddd.china.sample.domain.user.User;
 import com.victory.ddd.china.sample.domain.user.UserRepo;
-import org.apache.commons.lang3.tuple.Pair;
+import com.victory.ddd.china.sample.infrastructure.token.JwtTokenService;
+import org.apache.commons.lang3.tuple.Triple;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -20,14 +21,18 @@ public class RegisterUserUseCase {
     @Inject
     private ProfileRepo profileRepo;
 
+    @Inject
+    private JwtTokenService jwtTokenService;
+
     /**
      * Tasks
      * 1. check username is valid
      * 2. new User
      * 3. new profile
+     * 4. sign token
      */
     @Transactional
-    public Pair<User, Profile> register(String email, String username, String password) {
+    public Triple<User, Profile, String> register(String email, String username, String password) {
         if (userRepo.get(username).isPresent()) {
             throw new DomainBusinessException("user name already been used");
         }
@@ -36,6 +41,7 @@ public class RegisterUserUseCase {
 
         userRepo.save(user);
         profileRepo.save(profile);
-        return Pair.of(user, profile);
+        String token = jwtTokenService.issue(username);
+        return Triple.of(user, profile, token);
     }
 }

@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.nullValue;
 
 class UserResourceFacts extends BaseApiFacts {
@@ -28,7 +29,8 @@ class UserResourceFacts extends BaseApiFacts {
                 .body("body.email", equalTo(request.getEmail()))
                 .body("body.username", equalTo(request.getUsername()))
                 .body("body.bio", equalTo(null))
-                .body("body.image", equalTo(null));
+                .body("body.image", equalTo(null))
+                .body("body.token", isA(String.class));
     }
 
 }

@@ -6,6 +6,7 @@ import com.victory.ddd.china.sample.application.usecase.profile.QueryPublicRepre
 import com.victory.ddd.china.sample.application.usecase.user.RegisterUserUseCase;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
 import com.victory.ddd.china.sample.domain.user.User;
+import org.apache.commons.lang3.tuple.Triple;
 import org.glassfish.jersey.process.internal.RequestScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.commons.lang3.tuple.Pair;
@@ -39,15 +40,15 @@ public class UserResource {
 
     @POST
     @Path("/")
-    public ResponseEntity<CreateUserResponse> createUser(CreateUserRequest createUserRequest) {
-        Pair<User, Profile> pair = registerUserUseCase.register(
+    public ResponseEntity<CreateUserResponse> register(CreateUserRequest createUserRequest) {
+        Triple<User, Profile, String> triple = registerUserUseCase.register(
                 createUserRequest.getEmail(),
                 createUserRequest.getUsername(),
                 createUserRequest.getPassword()
         );
 
         return ResponseEntity.created(URI.create("/users/" + createUserRequest.getUsername())).body(
-                CreateUserResponse.from(pair.getLeft(), pair.getRight())
+                CreateUserResponse.from(triple.getLeft(), triple.getMiddle(),triple.getRight())
         );
     }
 }

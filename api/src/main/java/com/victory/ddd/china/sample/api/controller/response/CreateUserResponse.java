@@ -12,13 +12,15 @@ public class CreateUserResponse {
     private String email;
     private String bio;
     private String image;
+    private String token;
 
-    public static CreateUserResponse from(User user, Profile profile) {
+    public static CreateUserResponse from(User user, Profile profile, String token) {
         return CreateUserResponse.builder()
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .bio(profile.getBio())
                 .image(profile.getImage())
+                .token(token)
                 .build();
     }
 }
