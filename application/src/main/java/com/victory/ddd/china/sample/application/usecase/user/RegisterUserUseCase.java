@@ -22,17 +22,17 @@ public class RegisterUserUseCase {
 
     /**
      * Tasks
-     * 1. check userName is valid
+     * 1. check username is valid
      * 2. new User
      * 3. new profile
      */
     @Transactional
-    public Pair<User, Profile> register(String email, String userName, String password) {
-        if (userRepo.get(userName).isPresent()) {
+    public Pair<User, Profile> register(String email, String username, String password) {
+        if (userRepo.get(username).isPresent()) {
             throw new DomainBusinessException("user name already been used");
         }
-        User user = User.of(email, userName, password);
-        Profile profile = new Profile(userName);
+        User user = User.of(username, email, password);
+        Profile profile = new Profile(username);
 
         userRepo.save(user);
         profileRepo.save(profile);
