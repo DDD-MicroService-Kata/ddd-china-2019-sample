@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
-public class RegisterUserUseCase {
+public class QueryUserUseCase {
 
     @Inject
     private UserRepo userRepo;
@@ -22,27 +22,9 @@ public class RegisterUserUseCase {
     @Inject
     private ProfileRepo profileRepo;
 
-    @Inject
-    private JwtTokenService jwtTokenService;
-
-    /**
-     * Tasks
-     * 1. check username is valid
-     * 2. new User
-     * 3. new profile
-     * 4. sign token
-     */
-    @Transactional
-    public Triple<User, Profile, String> register(String email, String username, String password) {
-        if (userRepo.get(username).isPresent()) {
-            throw new DomainBusinessException("user name already been used");
-        }
-        User user = User.of(username, email, password);
-        Profile profile = new Profile(username);
-
-        userRepo.save(user);
-        profileRepo.save(profile);
-        String token = jwtTokenService.issue(username);
-        return Triple.of(user, profile, token);
+    public Pair<User, Profile> queryUserWithProfile(String username) {
+        User user = userRepo.get(username).get();
+        Profile profile = profileRepo.get(username).get();
+        return Pair.of(user, profile);
     }
 }

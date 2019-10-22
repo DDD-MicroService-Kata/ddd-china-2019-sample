@@ -2,7 +2,9 @@ package com.victory.ddd.china.sample.api.controller;
 
 import com.victory.ddd.china.sample.api.controller.request.CreateUserRequest;
 import com.victory.ddd.china.sample.api.controller.response.CreateUserResponse;
+import com.victory.ddd.china.sample.api.controller.response.QueryUserResponse;
 import com.victory.ddd.china.sample.application.usecase.profile.QueryPublicRepresentationUseCase;
+import com.victory.ddd.china.sample.application.usecase.user.QueryUserUseCase;
 import com.victory.ddd.china.sample.application.usecase.user.RegisterUserUseCase;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
 import com.victory.ddd.china.sample.domain.user.User;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.http.ResponseEntity;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -32,10 +35,13 @@ public class UserResource {
 
     private final RegisterUserUseCase registerUserUseCase;
 
+    private final QueryUserUseCase queryUserUseCase;
+
     @Autowired
-    public UserResource(final QueryPublicRepresentationUseCase queryPublicRepresentationUseCase, final RegisterUserUseCase registerUserUseCase) {
+    public UserResource(final QueryPublicRepresentationUseCase queryPublicRepresentationUseCase, final RegisterUserUseCase registerUserUseCase, final QueryUserUseCase queryUserUseCase) {
         this.queryPublicRepresentationUseCase = queryPublicRepresentationUseCase;
         this.registerUserUseCase = registerUserUseCase;
+        this.queryUserUseCase = queryUserUseCase;
     }
 
     @POST
@@ -48,7 +54,17 @@ public class UserResource {
         );
 
         return ResponseEntity.created(URI.create("/users/" + createUserRequest.getUsername())).body(
-                CreateUserResponse.from(triple.getLeft(), triple.getMiddle(),triple.getRight())
+                CreateUserResponse.from(triple.getLeft(), triple.getMiddle(), triple.getRight())
+        );
+    }
+
+    @GET
+    @Path("/")
+    public ResponseEntity<QueryUserResponse> getCurrentUser() {
+        String username = securityContext.getUserPrincipal().getName();
+        Pair<User, Profile> pair = queryUserUseCase.queryUserWithProfile(username);
+        return ResponseEntity.ok(
+                QueryUserResponse.from(pair.getLeft(), pair.getRight())
         );
     }
 }

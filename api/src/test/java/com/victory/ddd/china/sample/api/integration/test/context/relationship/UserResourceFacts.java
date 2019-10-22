@@ -3,21 +3,30 @@ package com.victory.ddd.china.sample.api.integration.test.context.relationship;
 import com.victory.ddd.china.sample.api.controller.request.CreateUserRequest;
 import com.victory.ddd.china.sample.api.integration.test.BaseApiFacts;
 
+import com.victory.ddd.china.sample.api.integration.test.fixtures.data.ProfileFixture;
+import com.victory.ddd.china.sample.api.integration.test.fixtures.data.UserFixture;
+import com.victory.ddd.china.sample.api.integration.test.fixtures.data.Usernames;
 import org.junit.jupiter.api.Test;
 
+import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isA;
-import static org.hamcrest.Matchers.nullValue;
 
 class UserResourceFacts extends BaseApiFacts {
 
-    @Test
-    void should_get_the_other_profile() {
+    @Inject
+    private UserFixture userFixture;
 
-        CreateUserRequest request = new CreateUserRequest("test@email.com", "testuser", "1234");
+    @Inject
+    private ProfileFixture profileFixture;
+
+    @Test
+    void should_register_a_new_user() {
+
+        CreateUserRequest request = new CreateUserRequest("test@email.com", Usernames.CURRENT_USER, "1234");
 
         given()
                 .body(request)
@@ -33,4 +42,22 @@ class UserResourceFacts extends BaseApiFacts {
                 .body("body.token", isA(String.class));
     }
 
+    @Test
+    void should_get_the_current_login_user() {
+        userFixture.createCurrentUser();
+        profileFixture.createCurrentUserProfile();
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .auth()
+                .oauth2("eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2Y2IyMjYxMy02MDFlLTQ4ZGItODQ5YS0wZjQxMjhlZTU1MTEiLCJpc3MiOiJUZXN0aW5nIiwiYXVkIjoiYXBpIiwic3ViIjoiY3VycmVudFVzZXIiLCJpYXQiOjE1NzE2NzM2MDAsImV4cCI6MTg4NzI5MjgwMH0.0DD8xVIC2UhYm5DTNbjblRjo_tt9zcVb4W7Nnp3hLYM")
+                .get("api/users/")
+                .then()
+                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .body("statusCodeValue", equalTo(200))
+                .body("body.email", equalTo("I like default"))
+                .body("body.username", equalTo(Usernames.CURRENT_USER))
+                .body("body.bio", equalTo("I like default"))
+                .body("body.image", equalTo("default image"));
+    }
 }
