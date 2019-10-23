@@ -1,11 +1,14 @@
 package com.victory.ddd.china.sample.api.controller;
 
 import com.victory.ddd.china.sample.api.controller.request.CreateUserRequest;
+import com.victory.ddd.china.sample.api.controller.request.UserLoginRequest;
 import com.victory.ddd.china.sample.api.controller.response.CreateUserResponse;
 import com.victory.ddd.china.sample.api.controller.response.QueryUserResponse;
+import com.victory.ddd.china.sample.api.controller.response.UserLoginResponse;
 import com.victory.ddd.china.sample.application.usecase.profile.QueryPublicRepresentationUseCase;
 import com.victory.ddd.china.sample.application.usecase.user.QueryUserUseCase;
 import com.victory.ddd.china.sample.application.usecase.user.RegisterUserUseCase;
+import com.victory.ddd.china.sample.application.usecase.user.UserLoginUseCase;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
 import com.victory.ddd.china.sample.domain.user.User;
 import org.apache.commons.lang3.tuple.Triple;
@@ -37,11 +40,18 @@ public class UserResource {
 
     private final QueryUserUseCase queryUserUseCase;
 
+    private final UserLoginUseCase userLoginUseCase;
+
     @Autowired
-    public UserResource(final QueryPublicRepresentationUseCase queryPublicRepresentationUseCase, final RegisterUserUseCase registerUserUseCase, final QueryUserUseCase queryUserUseCase) {
+    public UserResource(final QueryPublicRepresentationUseCase queryPublicRepresentationUseCase,
+                        final RegisterUserUseCase registerUserUseCase,
+                        final QueryUserUseCase queryUserUseCase,
+                        final UserLoginUseCase userLoginUseCase
+                        ) {
         this.queryPublicRepresentationUseCase = queryPublicRepresentationUseCase;
         this.registerUserUseCase = registerUserUseCase;
         this.queryUserUseCase = queryUserUseCase;
+        this.userLoginUseCase = userLoginUseCase;
     }
 
     @POST
@@ -65,6 +75,16 @@ public class UserResource {
         Pair<User, Profile> pair = queryUserUseCase.queryUserWithProfile(username);
         return ResponseEntity.ok(
                 QueryUserResponse.from(pair.getLeft(), pair.getRight())
+        );
+    }
+
+    @POST
+    @Path("/login")
+    public ResponseEntity<UserLoginResponse> login(UserLoginRequest userLoginRequest) {
+        Triple<User, Profile, String> triple = userLoginUseCase.login(userLoginRequest.getEmail(), userLoginRequest.getPassword());
+
+        return ResponseEntity.ok(
+                UserLoginResponse.from(triple.getLeft(), triple.getMiddle(), triple.getRight())
         );
     }
 }

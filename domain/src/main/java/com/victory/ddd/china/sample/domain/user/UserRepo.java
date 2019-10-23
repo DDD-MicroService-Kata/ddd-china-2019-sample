@@ -6,4 +6,6 @@ public interface UserRepo {
     void save(User user);
 
     Optional<User> get(String userName);
+
+    Optional<User> getByEmail(String email);
 }

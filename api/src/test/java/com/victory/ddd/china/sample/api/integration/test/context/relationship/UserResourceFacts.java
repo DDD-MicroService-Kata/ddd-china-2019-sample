@@ -1,6 +1,7 @@
 package com.victory.ddd.china.sample.api.integration.test.context.relationship;
 
 import com.victory.ddd.china.sample.api.controller.request.CreateUserRequest;
+import com.victory.ddd.china.sample.api.controller.request.UserLoginRequest;
 import com.victory.ddd.china.sample.api.integration.test.BaseApiFacts;
 
 import com.victory.ddd.china.sample.api.integration.test.fixtures.data.ProfileFixture;
@@ -22,6 +23,27 @@ class UserResourceFacts extends BaseApiFacts {
 
     @Inject
     private ProfileFixture profileFixture;
+
+    @Test
+    void should_login_user() {
+        userFixture.createCurrentUser();
+        profileFixture.createCurrentUserProfile();
+
+        UserLoginRequest userLoginRequest = new UserLoginRequest("test@email.com","123456");
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(userLoginRequest)
+                .post("api/users/login")
+                .then()
+                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .body("statusCodeValue", equalTo(200))
+                .body("body.email", equalTo("test@email.com"))
+                .body("body.token",isA(String.class))
+                .body("body.username", equalTo(Usernames.CURRENT_USER))
+                .body("body.bio", equalTo("I like default"))
+                .body("body.image", equalTo("default image"));
+    }
 
     @Test
     void should_register_a_new_user() {

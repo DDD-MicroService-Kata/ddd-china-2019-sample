@@ -32,4 +32,9 @@ public class UserRepoImpl implements UserRepo {
     public Optional<User> get(String username) {
         return userMapping.findByUsername(username).map(UserPO::toUser);
     }
+
+    @Override
+    public Optional<User> getByEmail(String email) {
+        return userMapping.findByEmail(email).map(UserPO::toUser);
+    }
 }

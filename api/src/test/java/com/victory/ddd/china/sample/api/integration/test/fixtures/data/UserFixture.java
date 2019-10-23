@@ -15,7 +15,7 @@ public class UserFixture {
     }
 
     public User createCurrentUser() {
-        User user = new User(Usernames.CURRENT_USER, "test@emai.com", "HASHXODEZ");
+        User user = new User(Usernames.CURRENT_USER, "test@email.com", "HASHXODEZ");
         userRepo.save(user);
         return user;
     }
