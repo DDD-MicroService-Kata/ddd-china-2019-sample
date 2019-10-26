@@ -1,6 +1,7 @@
 package com.victory.ddd.china.sample.api.integration.test.context.relationship;
 
 import com.victory.ddd.china.sample.api.controller.request.CreateUserRequest;
+import com.victory.ddd.china.sample.api.controller.request.UpdateUserRequest;
 import com.victory.ddd.china.sample.api.controller.request.UserLoginRequest;
 import com.victory.ddd.china.sample.api.integration.test.BaseApiFacts;
 
@@ -79,6 +80,23 @@ class UserResourceFacts extends BaseApiFacts {
                 .body("statusCodeValue", equalTo(200))
                 .body("body.email", equalTo("I like default"))
                 .body("body.username", equalTo(Usernames.CURRENT_USER))
+                .body("body.bio", equalTo("I like default"))
+                .body("body.image", equalTo("default image"));
+    }
+    @Test
+    void should_update_the_current_login_user() {
+        userFixture.createCurrentUser();
+        profileFixture.createCurrentUserProfile();
+        UpdateUserRequest updateUserRequest = new UpdateUserRequest("I like default","default image");
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(updateUserRequest)
+                .auth()
+                .oauth2("eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2Y2IyMjYxMy02MDFlLTQ4ZGItODQ5YS0wZjQxMjhlZTU1MTEiLCJpc3MiOiJUZXN0aW5nIiwiYXVkIjoiYXBpIiwic3ViIjoiY3VycmVudFVzZXIiLCJpYXQiOjE1NzE2NzM2MDAsImV4cCI6MTg4NzI5MjgwMH0.0DD8xVIC2UhYm5DTNbjblRjo_tt9zcVb4W7Nnp3hLYM")
+                .put("api/users/")
+                .then()
+                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .body("statusCodeValue", equalTo(200))
                 .body("body.bio", equalTo("I like default"))
                 .body("body.image", equalTo("default image"));
     }

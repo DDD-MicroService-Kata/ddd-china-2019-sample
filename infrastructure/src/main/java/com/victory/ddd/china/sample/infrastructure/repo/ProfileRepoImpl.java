@@ -29,6 +29,12 @@ public class ProfileRepoImpl implements ProfileRepo {
     }
 
     @Override
+    public void update(String userName, Profile newProfile) {
+        val po = ProfilePO.from(newProfile);
+        this.profileMapping.update(userName, po);
+    }
+
+    @Override
     public Optional<Profile> get(String userName) {
         return this.profileMapping.
                 findByUsername(userName).

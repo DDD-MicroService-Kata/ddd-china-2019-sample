@@ -25,11 +25,17 @@ public class Profile {
         return username.hashCode();
     }
 
+    public Profile update(String bio, String image) {
+        this.bio = bio;
+        this.image = image;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
-        if(obj == null)
+        if (obj == null)
             return false;
-        if(!Objects.equals(obj.getClass(), Profile.class))
+        if (!Objects.equals(obj.getClass(), Profile.class))
             return false;
         Profile anOtherObj = (Profile) obj;
         return this.getUsername().equals(anOtherObj.getUsername());

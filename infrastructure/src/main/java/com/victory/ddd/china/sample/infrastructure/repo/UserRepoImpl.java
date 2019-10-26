@@ -1,12 +1,7 @@
 package com.victory.ddd.china.sample.infrastructure.repo;
 
-
-import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
-import com.victory.ddd.china.sample.domain.context.relationship.profile.ProfileRepo;
 import com.victory.ddd.china.sample.domain.user.User;
 import com.victory.ddd.china.sample.domain.user.UserRepo;
-import com.victory.ddd.china.sample.infrastructure.mapping.ProfileMapping;
-import com.victory.ddd.china.sample.infrastructure.mapping.ProfilePO;
 import com.victory.ddd.china.sample.infrastructure.mapping.UserMapping;
 import com.victory.ddd.china.sample.infrastructure.mapping.UserPO;
 import lombok.NonNull;

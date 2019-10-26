@@ -5,5 +5,7 @@ import java.util.Optional;
 public interface ProfileRepo {
     void save(Profile theOtherOneProfile);
 
+    void update(String username, Profile newProfile);
+
     Optional<Profile> get(String userName);
 }

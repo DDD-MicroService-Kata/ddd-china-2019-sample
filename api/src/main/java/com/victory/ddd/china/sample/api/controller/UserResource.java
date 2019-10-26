@@ -1,13 +1,15 @@
 package com.victory.ddd.china.sample.api.controller;
 
 import com.victory.ddd.china.sample.api.controller.request.CreateUserRequest;
+import com.victory.ddd.china.sample.api.controller.request.UpdateUserRequest;
 import com.victory.ddd.china.sample.api.controller.request.UserLoginRequest;
 import com.victory.ddd.china.sample.api.controller.response.CreateUserResponse;
 import com.victory.ddd.china.sample.api.controller.response.QueryUserResponse;
+import com.victory.ddd.china.sample.api.controller.response.UpdateUserResponse;
 import com.victory.ddd.china.sample.api.controller.response.UserLoginResponse;
-import com.victory.ddd.china.sample.application.usecase.profile.QueryPublicRepresentationUseCase;
 import com.victory.ddd.china.sample.application.usecase.user.QueryUserUseCase;
 import com.victory.ddd.china.sample.application.usecase.user.RegisterUserUseCase;
+import com.victory.ddd.china.sample.application.usecase.user.UpdateUserUseCase;
 import com.victory.ddd.china.sample.application.usecase.user.UserLoginUseCase;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
 import com.victory.ddd.china.sample.domain.user.User;
@@ -19,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -34,7 +37,6 @@ public class UserResource {
     @Context
     SecurityContext securityContext;
 
-    private final QueryPublicRepresentationUseCase queryPublicRepresentationUseCase;
 
     private final RegisterUserUseCase registerUserUseCase;
 
@@ -42,16 +44,18 @@ public class UserResource {
 
     private final UserLoginUseCase userLoginUseCase;
 
+    private final UpdateUserUseCase updateUserUseCase;
+
     @Autowired
-    public UserResource(final QueryPublicRepresentationUseCase queryPublicRepresentationUseCase,
-                        final RegisterUserUseCase registerUserUseCase,
+    public UserResource(final RegisterUserUseCase registerUserUseCase,
                         final QueryUserUseCase queryUserUseCase,
-                        final UserLoginUseCase userLoginUseCase
-                        ) {
-        this.queryPublicRepresentationUseCase = queryPublicRepresentationUseCase;
+                        final UserLoginUseCase userLoginUseCase,
+                        final UpdateUserUseCase updateUserUseCase
+    ) {
         this.registerUserUseCase = registerUserUseCase;
         this.queryUserUseCase = queryUserUseCase;
         this.userLoginUseCase = userLoginUseCase;
+        this.updateUserUseCase = updateUserUseCase;
     }
 
     @POST
@@ -68,6 +72,11 @@ public class UserResource {
         );
     }
 
+    /**
+     * API 文档设计有误，更新用户信息，除了登录不应该再次返回 Token
+     *
+     * @return
+     */
     @GET
     @Path("/")
     public ResponseEntity<QueryUserResponse> getCurrentUser() {
@@ -78,6 +87,7 @@ public class UserResource {
         );
     }
 
+
     @POST
     @Path("/login")
     public ResponseEntity<UserLoginResponse> login(UserLoginRequest userLoginRequest) {
@@ -85,6 +95,21 @@ public class UserResource {
 
         return ResponseEntity.ok(
                 UserLoginResponse.from(triple.getLeft(), triple.getMiddle(), triple.getRight())
+        );
+    }
+
+    /**
+     * API 文档设计有误，更新用户信息，不应该允许修改 username、password
+     *
+     * @return
+     */
+    @PUT
+    @Path("/")
+    public ResponseEntity<UpdateUserResponse> updateCurrentUser(UpdateUserRequest updateUserRequest) {
+        String username = securityContext.getUserPrincipal().getName();
+        updateUserUseCase.updateUserCase(username, updateUserRequest.getBio(), updateUserRequest.getImage());
+        return ResponseEntity.ok(
+                UpdateUserResponse.from(updateUserRequest.getBio(), updateUserRequest.getImage())
         );
     }
 }
