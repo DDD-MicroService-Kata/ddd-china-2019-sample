@@ -1,5 +1,6 @@
 package com.victory.ddd.china.sample.application.usecase.user;
 
+import com.victory.ddd.china.sample.application.utils.DigestUtil;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.ProfileRepo;
 import com.victory.ddd.china.sample.domain.types.DomainBusinessException;
@@ -37,7 +38,7 @@ public class RegisterUserUseCase {
         if (userRepo.get(username).isPresent()) {
             throw new DomainBusinessException("user name already been used");
         }
-        User user = User.of(username, email, password);
+        User user = User.of(username, email, DigestUtil.digest(password));
         Profile profile = new Profile(username);
 
         userRepo.save(user);
