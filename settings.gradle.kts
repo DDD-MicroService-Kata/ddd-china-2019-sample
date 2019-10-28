@@ -8,7 +8,7 @@
  */
 
 rootProject.name = "ddd-china-2019-sample"
-include("api",
+include("adapters",
         "application",
         "domain",
         "infrastructure")

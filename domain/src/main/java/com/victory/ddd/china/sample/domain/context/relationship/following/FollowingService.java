@@ -1,7 +1,5 @@
 package com.victory.ddd.china.sample.domain.context.relationship.following;
 
-import com.victory.ddd.china.sample.domain.context.relationship.IsUserExistsProvider;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
