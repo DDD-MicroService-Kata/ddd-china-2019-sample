@@ -67,7 +67,7 @@ class FollowResourceFacts extends BaseApiFacts {
                 then().
                 statusCode(422).
                 body("errors", Matchers.hasSize(1)).
-                body("errors[0]", equalTo(String.format("no such user to follow %s", Usernames.Not_Exists)));
+                body("errors[0]", equalTo(String.format("no such user exists %s", Usernames.Not_Exists)));
     }
 
     @Test
