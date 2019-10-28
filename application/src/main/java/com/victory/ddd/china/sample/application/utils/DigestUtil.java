@@ -1,6 +1,7 @@
 package com.victory.ddd.china.sample.application.utils;
 
-import com.victory.ddd.china.sample.domain.types.DomainBusinessException;
+
+import com.victory.ddd.china.sample.domain.build.block.DomainBusinessException;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;

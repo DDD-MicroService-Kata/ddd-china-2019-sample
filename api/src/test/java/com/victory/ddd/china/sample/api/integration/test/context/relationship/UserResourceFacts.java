@@ -1,8 +1,8 @@
 package com.victory.ddd.china.sample.api.integration.test.context.relationship;
 
-import com.victory.ddd.china.sample.api.controller.request.CreateUserRequest;
-import com.victory.ddd.china.sample.api.controller.request.UpdateUserRequest;
-import com.victory.ddd.china.sample.api.controller.request.UserLoginRequest;
+import com.victory.ddd.china.sample.api.resource.request.CreateUserRequest;
+import com.victory.ddd.china.sample.api.resource.request.UpdateUserRequest;
+import com.victory.ddd.china.sample.api.resource.request.UserLoginRequest;
 import com.victory.ddd.china.sample.api.integration.test.BaseApiFacts;
 
 import com.victory.ddd.china.sample.api.integration.test.fixtures.data.ProfileFixture;

@@ -2,13 +2,9 @@ package com.victory.ddd.china.sample.application.usecase.user;
 
 import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.ProfileRepo;
-import com.victory.ddd.china.sample.domain.types.DomainBusinessException;
 import com.victory.ddd.china.sample.domain.user.User;
 import com.victory.ddd.china.sample.domain.user.UserRepo;
-import com.victory.ddd.china.sample.infrastructure.token.JwtTokenService;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;

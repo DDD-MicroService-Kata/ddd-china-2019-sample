@@ -1,6 +1,6 @@
-package com.victory.ddd.china.sample.api.controller;
+package com.victory.ddd.china.sample.api.resource;
 
-import com.victory.ddd.china.sample.application.query.ProfilePublicRepresentationReadModel;
+import com.victory.ddd.china.sample.application.read.model.ProfilePublicRepresentationReadModel;
 import com.victory.ddd.china.sample.application.usecase.profile.QueryPublicRepresentationUseCase;
 import org.glassfish.jersey.process.internal.RequestScoped;
 import org.springframework.beans.factory.annotation.Autowired;

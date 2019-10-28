@@ -1,13 +1,12 @@
 package com.victory.ddd.china.sample.application.usecase.user;
 
+import com.victory.ddd.china.sample.application.provider.AuthTokenServiceProvider;
 import com.victory.ddd.china.sample.application.utils.DigestUtil;
+import com.victory.ddd.china.sample.domain.build.block.DomainBusinessException;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.ProfileRepo;
-import com.victory.ddd.china.sample.domain.types.DomainBusinessException;
 import com.victory.ddd.china.sample.domain.user.User;
 import com.victory.ddd.china.sample.domain.user.UserRepo;
-import com.victory.ddd.china.sample.infrastructure.token.JwtTokenService;
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +23,7 @@ public class RegisterUserUseCase {
     private ProfileRepo profileRepo;
 
     @Inject
-    private JwtTokenService jwtTokenService;
+    private AuthTokenServiceProvider authTokenServiceProvider;
 
     /**
      * Tasks
@@ -43,7 +42,7 @@ public class RegisterUserUseCase {
 
         userRepo.save(user);
         profileRepo.save(profile);
-        String token = jwtTokenService.issue(username);
+        String token = authTokenServiceProvider.issue(username);
         return Triple.of(user, profile, token);
     }
 }

@@ -1,8 +1,8 @@
 package com.victory.ddd.china.sample.application.usecase.profile;
 
 import com.victory.ddd.china.sample.application.build.block.UseCase;
-import com.victory.ddd.china.sample.application.query.ProfilePublicRepresentationReadModel;
-import com.victory.ddd.china.sample.application.query.PublicRepresentationQueryService;
+import com.victory.ddd.china.sample.application.read.model.ProfilePublicRepresentationReadModel;
+import com.victory.ddd.china.sample.application.read.model.PublicRepresentationQueryService;
 
 import javax.inject.Inject;
 import javax.inject.Named;

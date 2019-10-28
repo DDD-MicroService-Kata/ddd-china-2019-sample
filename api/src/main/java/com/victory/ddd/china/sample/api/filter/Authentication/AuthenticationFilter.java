@@ -1,5 +1,6 @@
 package com.victory.ddd.china.sample.api.filter.Authentication;
 
+import com.victory.ddd.china.sample.application.provider.AuthTokenServiceProvider;
 import com.victory.ddd.china.sample.infrastructure.token.JwtTokenService;
 
 import javax.annotation.Priority;
@@ -16,11 +17,11 @@ import java.security.Principal;
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class AuthenticationFilter implements ContainerRequestFilter {
-    private final JwtTokenService jwtTokenService;
+    private final AuthTokenServiceProvider authTokenServiceProvider;
 
     @Inject
-    public AuthenticationFilter(JwtTokenService jwtTokenService) {
-        this.jwtTokenService = jwtTokenService;
+    public AuthenticationFilter(AuthTokenServiceProvider authTokenServiceProvider) {
+        this.authTokenServiceProvider = authTokenServiceProvider;
     }
 
     @Override
@@ -32,7 +33,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     }
 
     private void handleTokenBasedAuthentication(String authenticationToken, ContainerRequestContext requestContext) {
-        String username = jwtTokenService.parse(authenticationToken);
+        String username = authTokenServiceProvider.parse(authenticationToken);
         boolean isSecure = requestContext.getSecurityContext().isSecure();
         SecurityContext securityContext = new UsernameSecurityContext(username, isSecure);
         requestContext.setSecurityContext(securityContext);

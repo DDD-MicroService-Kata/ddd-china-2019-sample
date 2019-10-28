@@ -1,12 +1,12 @@
-package com.victory.ddd.china.sample.api.controller;
+package com.victory.ddd.china.sample.api.resource;
 
-import com.victory.ddd.china.sample.api.controller.request.CreateUserRequest;
-import com.victory.ddd.china.sample.api.controller.request.UpdateUserRequest;
-import com.victory.ddd.china.sample.api.controller.request.UserLoginRequest;
-import com.victory.ddd.china.sample.api.controller.response.CreateUserResponse;
-import com.victory.ddd.china.sample.api.controller.response.QueryUserResponse;
-import com.victory.ddd.china.sample.api.controller.response.UpdateUserResponse;
-import com.victory.ddd.china.sample.api.controller.response.UserLoginResponse;
+import com.victory.ddd.china.sample.api.resource.request.CreateUserRequest;
+import com.victory.ddd.china.sample.api.resource.request.UpdateUserRequest;
+import com.victory.ddd.china.sample.api.resource.request.UserLoginRequest;
+import com.victory.ddd.china.sample.api.resource.response.CreateUserResponse;
+import com.victory.ddd.china.sample.api.resource.response.QueryUserResponse;
+import com.victory.ddd.china.sample.api.resource.response.UpdateUserResponse;
+import com.victory.ddd.china.sample.api.resource.response.UserLoginResponse;
 import com.victory.ddd.china.sample.application.usecase.user.QueryUserUseCase;
 import com.victory.ddd.china.sample.application.usecase.user.RegisterUserUseCase;
 import com.victory.ddd.china.sample.application.usecase.user.UpdateUserUseCase;

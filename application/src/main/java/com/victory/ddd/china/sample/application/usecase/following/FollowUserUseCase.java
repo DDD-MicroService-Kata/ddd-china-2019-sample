@@ -1,8 +1,8 @@
 package com.victory.ddd.china.sample.application.usecase.following;
 
 import com.victory.ddd.china.sample.application.build.block.UseCase;
-import com.victory.ddd.china.sample.application.query.ProfilePublicRepresentationReadModel;
-import com.victory.ddd.china.sample.application.query.PublicRepresentationQueryService;
+import com.victory.ddd.china.sample.application.read.model.ProfilePublicRepresentationReadModel;
+import com.victory.ddd.china.sample.application.read.model.PublicRepresentationQueryService;
 import com.victory.ddd.china.sample.domain.context.relationship.following.FollowingService;
 import lombok.val;
 import org.springframework.transaction.annotation.Transactional;

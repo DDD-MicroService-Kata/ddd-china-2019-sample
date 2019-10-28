@@ -1,4 +1,4 @@
-package com.victory.ddd.china.sample.api.controller.response;
+package com.victory.ddd.china.sample.api.resource.response;
 
 import com.victory.ddd.china.sample.domain.context.relationship.profile.Profile;
 import com.victory.ddd.china.sample.domain.user.User;

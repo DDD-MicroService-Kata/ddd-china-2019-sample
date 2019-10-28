@@ -1,4 +1,4 @@
-package com.victory.ddd.china.sample.api.controller.response;
+package com.victory.ddd.china.sample.api.resource.response;
 
 import lombok.Builder;
 import lombok.Data;

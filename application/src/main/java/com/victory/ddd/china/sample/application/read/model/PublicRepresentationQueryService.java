@@ -1,4 +1,4 @@
-package com.victory.ddd.china.sample.application.query;
+package com.victory.ddd.china.sample.application.read.model;
 
 import com.victory.ddd.china.sample.domain.context.relationship.following.IsFollowingSpecification;
 import com.victory.ddd.china.sample.domain.context.relationship.profile.ProfileRepo;
