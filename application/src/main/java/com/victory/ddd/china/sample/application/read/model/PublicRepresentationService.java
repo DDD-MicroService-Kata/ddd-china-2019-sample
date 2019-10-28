@@ -9,12 +9,12 @@ import javax.inject.Named;
 import java.util.Optional;
 
 @Named
-public class PublicRepresentationQueryService {
+public class PublicRepresentationService {
     private final ProfileRepo profileRepo;
     private final IsFollowingSpecification isFollowingSpecification;
 
     @Inject
-    public PublicRepresentationQueryService(ProfileRepo profileRepo, IsFollowingSpecification isFollowingSpecification) {
+    public PublicRepresentationService(ProfileRepo profileRepo, IsFollowingSpecification isFollowingSpecification) {
         this.profileRepo = profileRepo;
         this.isFollowingSpecification = isFollowingSpecification;
     }
